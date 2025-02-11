@@ -1,0 +1,42 @@
+{% extends 'projectnavbar.html' %}
+{% load static %}
+{% block title %}All Books{% endblock title %}
+
+{% block main-content %}
+<br/><br/><br/><br/>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                {% for book in books %}
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="shadow menu-item-card p-3 mb-3">
+                        <a href="{% url 'book_detail' book.id %}">
+                            <img src="{{ book.book_image.url }}" class="menu-item-image w-100" alt="{{ book.title }}" />
+                        </a>
+                        <h1 class="menu-card-title">{{ book.title }}</h1>
+                        <div class="fw-bold text-success">
+                            Rs.{{ book.discount_price }}/-
+                            <small class="fw-light text-decoration-line-through"><del>{{ book.selling_price }}</del></small>
+                        </div>
+                        <div class="buttons row flex" style="font-family: 'Roboto'; display: flex; justify-content: center; align-items: center;">
+                            {% if user.is_authenticated %}
+                                <button class="d-flex gap2 btn1 btn btn-danger p-1 m-1 btn-lg text-decoration-none text-white" type="submit"><i class="fa-solid fa-cart-shopping"></i>
+                                    Add to cart
+                                </button>
+                            {% else %}
+                                <a href="{% url 'login' %}" class="btn btn-primary">Login to Add to Cart</a>
+                            {% endif %}
+                            <div class="btn btn-dark p-1 m-1 btn-lg">
+                                <a href="#" class="text-decoration-none text-white"><i class="fa-brands fa-buy-n-large"></i> Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<br/><br/><br/>
+{% endblock main-content %}

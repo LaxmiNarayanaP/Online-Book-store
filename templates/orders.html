@@ -1,0 +1,36 @@
+{% extends 'projectnavbar.html' %}
+{% load static %}
+
+{% block title %}Orders{% endblock title %}
+
+{% block main-content %}
+<br/><br/><br/>
+<div class="container my-5">
+    <div class="row">
+        {% if orders %}
+            <div class="col-md-12">
+                <h1 class="mb-5">Your Orders</h1>
+                {% for order in orders %}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Order ID: {{ order.id }}</h5>
+                            <p class="card-text">Total Amount: Rs. {{ order.total_amount }}</p>
+                            <p class="card-text">Order Date: {{ order.order_date }}</p>
+                            <p class="card-text">Status: {{ order.get_status_display }}</p>
+                            <!-- Add any other relevant order details here -->
+                        </div>
+                    </div>
+                {% empty %}
+                    <p>No orders found.</p>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="col-md-12 text-center">
+                <h1 class="mb-5">No Orders Yet</h1>
+                <a href="{% url 'all_books_view' %}" class="btn btn-primary">Start Shopping</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+<br/><br/><br/>
+{% endblock main-content %}

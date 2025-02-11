@@ -1,0 +1,30 @@
+{% extends 'projectnavbar.html' %}
+{% load static %}
+{% block title %}All Books{% endblock title %}
+
+{% block main-content %}
+<br/><br/><br/><br/>
+<div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                {% for boook in books %}
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="shadow menu-item-card p-3 mb-3">
+                        <a href="{% url 'book_detail' boook.id %}">
+                            <img src="{{boook.book_image.url}}" class="menu-item-image w-100" alt="{{boook.title}}" />
+                        </a>
+                        <h1 class="menu-card-title">{{boook.title}}</h1>
+                        <div class="fw-bold text-success">
+                            Rs.{{boook.discount_price}}/-
+                            <small class="fw-light text-decoration-line-through"><del>{{boook.selling_price}}</del></small>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<br/><br/><br/>
+{% endblock main-content %}
